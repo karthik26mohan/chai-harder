@@ -1,8 +1,20 @@
-<mat-grid-list cols="2" rowHeight="200px">
-    <mat-grid-tile>1</mat-grid-tile>
-    <mat-grid-tile>2</mat-grid-tile>
-    <mat-grid-tile>3</mat-grid-tile>
-    <mat-grid-tile>4</mat-grid-tile>
-    <mat-grid-tile>5</mat-grid-tile>
-    <mat-grid-tile>6</mat-grid-tile>
-</mat-grid-list>
+
+    <!-- grid list -->
+    <mat-grid-list cols="2" rowHeight="200px">
+        @for (descriptor of group; track descriptor.descriptor; let idx = $index) {
+            <mat-grid-tile id="$index" [style.background]="selected.includes(descriptor.id) ? 'red' : 'blue'" (click)="highlight(descriptor.id)">{{descriptor.descriptor}}</mat-grid-tile>
+        } 
+    </mat-grid-list>
+    <!-- pagination -->
+    <mat-paginator #paginator
+    class="demo-paginator"
+    (page)="handlePageEvent($event)"
+    [length]="length"
+    [pageSize]="pageSize"
+    [disabled]="disabled"
+    [showFirstLastButtons]="showFirstLastButtons"
+    [hidePageSize]="hidePageSize"
+    [pageIndex]="pageIndex"
+    aria-label="Select page">
+    </mat-paginator>
+

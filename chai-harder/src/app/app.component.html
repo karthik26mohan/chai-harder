@@ -9,32 +9,23 @@
         <form [formGroup]="firstFormGroup">
           <ng-template matStepLabel>Describe Your Coworker</ng-template>
           <mat-form-field style="margin-right: 8px;">
-            <mat-label>Name</mat-label>
-            <input matInput placeholder="First name, Last name" formControlName="firstCtrl" required>
+          <mat-label>Name</mat-label>
+          <input matInput placeholder="First name, Last name" formControlName="nameCtrl" required>
           </mat-form-field>
+          <!-- required fields -->
           <mat-form-field>
               <mat-label>Select Pronouns</mat-label>
-              <mat-select required>
-                <mat-option value="one">He/Him</mat-option>
-                <mat-option value="two">She/Her</mat-option>
-                <mat-option value="two">They/Them</mat-option>
+              <mat-select formControlName="pronounCtrl" required>
+              <mat-option value="one">He/Him</mat-option>
+              <mat-option value="two">She/Her</mat-option>
+              <mat-option value="two">They/Them</mat-option>
               </mat-select>
-            </mat-form-field>
-            <app-grid class="app-grid"></app-grid>
-            <mat-paginator #paginator
-            class="demo-paginator"
-            (page)="handlePageEvent($event)"
-            [length]="length"
-            [pageSize]="pageSize"
-            [disabled]="disabled"
-            [showFirstLastButtons]="showFirstLastButtons"
-            [hidePageSize]="hidePageSize"
-            [pageIndex]="pageIndex"
-            aria-label="Select page">
-            </mat-paginator>
+          </mat-form-field>
+        <app-grid class="app-grid"></app-grid>
+         <!-- next buttons -->
           <div class="nextBackButtons">
-            <button mat-button matStepperNext>Next</button>
-          </div>
+            <button [disabled]="firstFormGroup.invalid" mat-button matStepperNext>Next</button>
+            </div>
         </form>
       </mat-step>
       <mat-step [stepControl]="secondFormGroup" label="Additional information">

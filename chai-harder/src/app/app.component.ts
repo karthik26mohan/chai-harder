@@ -53,34 +53,16 @@ export class AppComponent {
     });
     completion.then((result: { choices: { message: any; }[]; }) => console.log(result.choices[0].message.content));
   } 
-  
   private _formBuilder = inject(FormBuilder);
 
   firstFormGroup = this._formBuilder.group({
-    firstCtrl: ['', Validators.required],
+    nameCtrl: ['', Validators.required],
+    pronounCtrl: ['', Validators.required],
   });
   secondFormGroup = this._formBuilder.group({
     secondCtrl: ['', Validators.required],
   });
   isLinear = false;
 
-  //example 
-  length = 18;
-  pageSize = 6;
-  pageIndex = 0;
-
-  hidePageSize = true;
-  showPageSizeOptions = true;
-  showFirstLastButtons = true;
-  disabled = false;
-
-  pageEvent: PageEvent | undefined;
-
-  handlePageEvent(e: PageEvent) {
-    this.pageEvent = e;
-    this.length = e.length;
-    this.pageSize = e.pageSize;
-    this.pageIndex = e.pageIndex;
-  }
 }
 
