@@ -50,7 +50,7 @@ export class AppComponent {
       model: "gpt-4o-mini",
       store: true,
       messages: [
-        {"role": "user", "content": "Generate a review for a person using the following words: kind, knowledgeable, and helpful."},
+        {"role": "user", "content": "Generate a kudos for a person named Naomi. Her pronouns are she/her. Use the following words: kind, knowledgeable, helpful. Also use these phrases: always willing to help, great listener, had so much fun coding together at the hackathon with her, and a team player."},
       ],
     });
     completion.then((result: { choices: { message: any; }[]; }) => console.log(result.choices[0].message));
