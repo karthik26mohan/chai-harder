@@ -11,6 +11,9 @@ import {PageEvent, MatPaginatorModule} from '@angular/material/paginator';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {JsonPipe} from '@angular/common';
 
+import OpenAI from "openai";
+import { environment } from '../../environment.dev';
+
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet,
@@ -30,8 +33,29 @@ import {JsonPipe} from '@angular/common';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
+  openai: any;
   title = 'chai-harder';
 
+  constructor() {
+    this.openai = new OpenAI({
+      apiKey: environment.chatGptApiKey,
+      dangerouslyAllowBrowser: true
+    });
+  }
+
+  ngOnInit() {
+    console.log("AppComponent initialized");
+  
+    const completion = this.openai.chat.completions.create({
+      model: "gpt-4o-mini",
+      store: true,
+      messages: [
+        {"role": "user", "content": "Generate a review for a person using the following words: kind, knowledgeable, and helpful."},
+      ],
+    });
+    completion.then((result: { choices: { message: any; }[]; }) => console.log(result.choices[0].message));
+  } 
+  
   private _formBuilder = inject(FormBuilder);
 
   firstFormGroup = this._formBuilder.group({
@@ -61,3 +85,4 @@ export class AppComponent {
     this.pageIndex = e.pageIndex;
   }
 }
+
