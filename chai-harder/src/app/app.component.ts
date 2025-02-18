@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import OpenAI from "openai";
+import { environment } from '../../environment.dev';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,8 @@ export class AppComponent {
 
   constructor() {
     this.openai = new OpenAI({
-      apiKey: "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", dangerouslyAllowBrowser: true
+      apiKey: environment.chatGptApiKey,
+      dangerouslyAllowBrowser: true
     });
   }
 
