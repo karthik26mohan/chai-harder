@@ -40,8 +40,11 @@
       <mat-step [stepControl]="secondFormGroup" label="Additional information">
         <form [formGroup]="secondFormGroup">
           <mat-form-field>
-            <!-- second component page will go here, with the cards of descriptors and additional sentences the user adds -->
+              <!-- second component page will go here, with the cards of descriptors and additional sentences the user adds -->
             <!-- adjustable input -->
+            <mat-label>Address</mat-label>
+            <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                   required>
           </mat-form-field>
           <div class="nextBackButtons">
             <button mat-button matStepperPrevious>Back</button>
