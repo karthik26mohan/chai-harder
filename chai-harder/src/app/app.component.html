@@ -11,30 +11,19 @@
             <ng-template matStepLabel>Describe Your Coworker</ng-template>
             <mat-form-field style="margin-right: 8px;">
               <mat-label>Name</mat-label>
-              <input matInput placeholder="First name, Last name" formControlName="firstCtrl" required>
+              <input matInput formControlName="nameCtrl" required>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Select Pronouns</mat-label>
-                <mat-select required>
-                  <mat-option value="one">He/Him</mat-option>
-                  <mat-option value="two">She/Her</mat-option>
-                  <mat-option value="two">They/Them</mat-option>
+                <mat-select required formControlName="pronounCtrl">
+                  <mat-option value="he/him">He/Him</mat-option>
+                  <mat-option value="she/her">She/Her</mat-option>
+                  <mat-option value="they/them">They/Them</mat-option>
                 </mat-select>
               </mat-form-field>
-              <app-grid class="app-grid"></app-grid>
-              <!-- <mat-paginator #paginator
-              class="demo-paginator"
-              (page)="handlePageEvent($event)"
-              [length]="length"
-              [pageSize]="pageSize"
-              [disabled]="disabled"
-              [showFirstLastButtons]="showFirstLastButtons"
-              [hidePageSize]="hidePageSize"
-              [pageIndex]="pageIndex"
-              aria-label="Select page">
-              </mat-paginator> -->
+              <app-grid class="app-grid" (valueChange)="onValueChange($event)"></app-grid>
             <div class="nextBackButtons">
-              <button mat-button matStepperNext>Next</button>
+              <button mat-button matStepperNext [disabled]="firstFormGroup.invalid">Next</button>
             </div>
           </form>
         </div>
@@ -43,11 +32,11 @@
         <div class="step-container">
           <form [formGroup]="secondFormGroup">
             <mat-form-field style="min-height: 740px; min-width: 500px;">
-              <textarea matInput rows="28" matTextareaAutosize placeholder="Ex. Was super helpful in Project Genesis, would love to work with them again, has an amazing sense of humor, etc"></textarea>
+              <textarea formControlName="additionalInfoCrtl" matInput rows="28" matTextareaAutosize placeholder="Ex. Was super helpful in Project Genesis, would love to work with them again, has an amazing sense of humor, etc"></textarea>
             </mat-form-field>
             <div class="nextBackButtons">
               <button mat-button matStepperPrevious>Back</button>
-              <button mat-button matStepperNext>Next</button>
+              <button mat-button matStepperNext  (click)="onFinalStep()">Next</button>
             </div>
           </form>
         </div>
@@ -56,7 +45,7 @@
         <div class="step-container">
           <form [formGroup]="thirdFormGroup">
             <mat-form-field style="min-height: 740px; min-width: 500px;">
-              <textarea matInput rows="28" matTextareaAutosize placeholder="Ex. Was super helpful in Project Genesis, would love to work with them again, has an amazing sense of humor, etc"></textarea>
+              <textarea formControlName="result" matInput rows="28" matTextareaAutosize placeholder="Ex. Was super helpful in Project Genesis, would love to work with them again, has an amazing sense of humor, etc"></textarea>
             </mat-form-field>
             <div class="nextBackButtons">
               <button mat-button matStepperPrevious>Back</button>

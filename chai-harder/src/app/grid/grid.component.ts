@@ -1,4 +1,4 @@
-import { Component, inject, input, Input } from '@angular/core';
+import { Component, EventEmitter, inject, input, Input, Output } from '@angular/core';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -40,6 +40,8 @@ export class GridComponent {
 
    toggle = true;
    selected: number[] = [];
+   @Output() valueChange = new EventEmitter<string>();
+   flattenedDiscriptors: { id: number, descriptor: string }[] = [];
 
   //groups
   public discriptorGroups: { id: number, descriptor: string }[][] = descriptors;
@@ -47,6 +49,7 @@ export class GridComponent {
 
    ngOnInit() {
     this.group = this.discriptorGroups[0];
+    this.flattenedDiscriptors = descriptors.flat();
   } 
  
    handlePageEvent(e: PageEvent) {
@@ -59,9 +62,13 @@ export class GridComponent {
 
    public highlight(index: number) {
     if (this.selected.includes(index)) {
-      this.selected = this.selected.filter((i) => i !== index)
-      return
-    } else this.selected.push(index)
+      this.selected = this.selected.filter((i) => i !== index);
+    } else {
+      this.selected.push(index);
     }
+    // get a string of the selected descriptors
+    const selectedDescriptors = this.selected.map((i) => this.flattenedDiscriptors.find(g => g.id === i)?.descriptor).join(", ");
+    this.valueChange.emit(selectedDescriptors);
+  }
 
 }
