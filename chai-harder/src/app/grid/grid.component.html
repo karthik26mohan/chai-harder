@@ -1,6 +1,6 @@
 
     <!-- grid list -->
-    <mat-grid-list cols="2" rowHeight="200px">
+    <mat-grid-list cols="2" rowHeight="200px" style="cursor: pointer;">
         @for (descriptor of group; track descriptor.descriptor; let idx = $index) {
             <mat-grid-tile id="$index" [style.background]="selected.includes(descriptor.id) ? 'red' : 'blue'" (click)="highlight(descriptor.id)">{{descriptor.descriptor}}</mat-grid-tile>
         } 
