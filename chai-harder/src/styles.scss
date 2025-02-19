@@ -11,6 +11,7 @@
     @include mat.paginator-overrides((
     container-text-color: #6f8d6a,
     container-text-weight: --mat-sys-body-medium-weight,
+    enabled-icon-color: #6f8d6a,
   ));
   }
 
