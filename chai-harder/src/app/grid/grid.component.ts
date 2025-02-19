@@ -7,7 +7,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { group } from '@angular/animations';
 import { descriptors } from './descriptors.constants';
 
 

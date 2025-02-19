@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,6 +12,8 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 import OpenAI from "openai";
 import { environment } from '../../environment.dev';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -26,6 +28,8 @@ import { environment } from '../../environment.dev';
     GridComponent,
     MatSlideToggleModule,
     MatPaginatorModule,
+    MatProgressSpinnerModule,
+    CommonModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
@@ -34,6 +38,10 @@ export class AppComponent {
   openai: any;
   title = 'chai-harder';
   private _formBuilder = inject(FormBuilder);
+  loading: boolean = true;
+  @ViewChild('resultTextArea', { static: false }) textArea!: ElementRef;
+  typingSpeed: number = 20; // milliseconds per character
+  currentIndex: number = 0;
 
   firstFormGroup = this._formBuilder.group({
     nameCtrl: ['', Validators.required],
@@ -55,15 +63,7 @@ export class AppComponent {
     });
   }
 
-  ngOnInit() {
-    console.log("AppComponent initialized");
-    // used for testing. So we don't make unnecessary API calls
-    // const message = "Karthik is a remarkable individual who exemplifies the qualities of a smart, passionate, and resilient professional. His intellect shines through in every project he undertakes, and his ability to tackle challenges head-on sets him apart from his peers. All clients loved him during our recent engagements, as he consistently went above and beyond to ensure their needs were met and their expectations exceeded.One standout moment was when Karthik created an architecture diagram that the entire team was impressed by. His meticulous attention to detail and innovative thinking not only enriched our understanding of the project but also provided a clear roadmap for our next steps. It’s clear that he possesses a keen understanding of complex concepts and can communicate them effectively to both technical and non-technical stakeholders alike.Moreover, his managerial skills are truly noteworthy; they need to be studied by others who aspire to lead. Karthik’s ability to motivate and inspire his colleagues while maintaining a positive and productive environment is a testament to his leadership potential. He navigates challenges with resilience and grace, making him an invaluable asset to any team.Overall, Karthik is a force to be reckoned with, and I have no doubt that he will continue to achieve great things in his career. Anyone would be fortunate to work alongside him!";
-    // this.thirdFormGroup.setValue({result: message});
-  } 
-
   onFinalStep() {
-  
     const completion = this.openai.chat.completions.create({
       model: "gpt-4o-mini",
       store: true,
@@ -74,10 +74,22 @@ export class AppComponent {
       ],
     });
     completion.then((result: { choices: { message: any; }[]; }) => {
-      console.log(result.choices[0].message.content)
-      this.thirdFormGroup.setValue({result: result.choices[0].message.content});
+      this.loading = false;
+      this.typeWriter(result.choices[0].message.content);
     });
 
+    // testing
+    // const message = "Karthik is a remarkable individual who exemplifies the qualities of a smart, passionate, and resilient professional. His intellect shines through in every project he undertakes, and his ability to tackle challenges head-on sets him apart from his peers. All clients loved him during our recent engagements, as he consistently went above and beyond to ensure their needs were met and their expectations exceeded.One standout moment was when Karthik created an architecture diagram that the entire team was impressed by. His meticulous attention to detail and innovative thinking not only enriched our understanding of the project but also provided a clear roadmap for our next steps. It’s clear that he possesses a keen understanding of complex concepts and can communicate them effectively to both technical and non-technical stakeholders alike.Moreover, his managerial skills are truly noteworthy; they need to be studied by others who aspire to lead. Karthik’s ability to motivate and inspire his colleagues while maintaining a positive and productive environment is a testament to his leadership potential. He navigates challenges with resilience and grace, making him an invaluable asset to any team.Overall, Karthik is a force to be reckoned with, and I have no doubt that he will continue to achieve great things in his career. Anyone would be fortunate to work alongside him!";
+    // this.loading = false;
+    // this.typeWriter(message);
+  }
+
+  typeWriter(textToType: string) {
+    if (this.currentIndex < textToType.length) {
+      this.textArea.nativeElement.value += textToType.charAt(this.currentIndex);
+      this.currentIndex++;
+      setTimeout(() => this.typeWriter(textToType), this.typingSpeed);
+    }
   }
 
   onValueChange(value: string) {

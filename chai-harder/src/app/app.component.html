@@ -45,7 +45,8 @@
         <div class="step-container">
           <form [formGroup]="thirdFormGroup">
             <mat-form-field style="min-height: 740px; min-width: 500px;">
-              <textarea formControlName="result" matInput rows="28" matTextareaAutosize placeholder="Ex. Was super helpful in Project Genesis, would love to work with them again, has an amazing sense of humor, etc"></textarea>
+              <mat-spinner style="margin: auto;" *ngIf="loading"></mat-spinner>
+              <textarea #resultTextArea formControlName="result" matInput rows="28" matTextareaAutosize></textarea>
             </mat-form-field>
             <div class="nextBackButtons">
               <button mat-button matStepperPrevious>Back</button>
