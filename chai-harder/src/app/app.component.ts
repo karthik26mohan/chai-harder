@@ -36,7 +36,7 @@ import { CommonModule } from '@angular/common';
 })
 export class AppComponent {
   openai: any;
-  title = 'chai-harder';
+  title = 'Core Value Companion';
   private _formBuilder = inject(FormBuilder);
   loading: boolean = true;
   @ViewChild('resultTextArea', { static: false }) textArea!: ElementRef;

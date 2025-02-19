@@ -1,16 +1,10 @@
 mat-grid-tile {
-    background: lightblue;
+    background: #d7e8bc; 
+    border-radius: 10px;
+    font-size: 17px;
   }
 
 mat-grid-list {
     height: 540px;
     width: 500px;
-}
-
-.green {
-    background-color: green;
-}
-
-.red {
-    background-color: red;
 }

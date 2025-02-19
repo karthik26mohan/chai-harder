@@ -1,27 +1,37 @@
 @use '@angular/material' as mat;
+@use './theme-colors' as my-theme; // location of generated file
 
 // Customize the entire app. Change :root to your selector if you want to scope the styles.
 :root {
     @include mat.stepper-overrides((
-      header-icon-foreground-color: rgb(63, 41, 1),
-      header-selected-state-icon-background-color: rgb(105, 157, 26),
+    header-hover-state-layer-color: #d7e8bc,
+    header-selected-state-icon-background-color: #6f8d6a, 
+    header-focus-state-layer-color: #d7e8bc
     ));
+    @include mat.paginator-overrides((
+    container-text-color: #6f8d6a,
+    container-text-weight: --mat-sys-body-medium-weight,
+  ));
   }
 
 html {
-    color-scheme: dark;
+    color-scheme: light;
     @include mat.theme((
-      color: mat.$violet-palette,
-      typography: Roboto,
+      color: (
+        primary: my-theme.$primary-palette,
+        theme-type: light,
+      ),
+      typography: "Courier New",
       density: 0
     ));
   }
-/* You can add global styles to this file, and also import other style files */
 body {
     margin: 0px;
-    // background-color: black;
     position: relative;
     z-index: 0;
+    font-family: "Courier New", Roboto, "Helvetica Neue";
+    background: #e7dbbf;
+    color: #433e3c;
 }
 html, body { height: 100%; }
-body { margin: 0; font-family: "Courier New", Roboto, "Helvetica Neue"; }
+
