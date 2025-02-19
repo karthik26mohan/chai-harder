@@ -26,31 +26,30 @@
 }
 
 .mat-stepper-horizontal {
-    top: 130px;
-    position: fixed;
-    width: 100%;
-    height: 100%;
-  }
+  top: 130px;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
   
-  .mat-mdc-form-field {
-    margin-top: 16px;
-    width: 248px;
-  }
+.mat-mdc-form-field {
+  margin-top: 16px;
+  width: 248px;
+}
 
-  .nextBackButtons {
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
-  }
-
-:host ::ng-deep .mat-horizontal-content-container {
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    margin-left: 200px;
+.nextBackButtons {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
 }
 
 //pagination
   .demo-paginator {
     width: 500px;
+  }
+  
+  .step-container {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Optional, for vertical centering as well */
   }

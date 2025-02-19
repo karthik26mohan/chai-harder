@@ -62,6 +62,9 @@ export class AppComponent {
   secondFormGroup = this._formBuilder.group({
     secondCtrl: ['', Validators.required],
   });
+  thirdFormGroup = this._formBuilder.group({
+    thirdCtrl: ['', Validators.required],
+  });
   isLinear = false;
 
 }
